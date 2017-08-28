@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome against localhost, with sourcemaps",
+            "type": "node",
+            "request": "launch",
+            "sourceMaps": true,
+            "trace": true
+        },
+        {
+            "name": "Attach to Chrome, with sourcemaps",
+            "type": "node",
+            "request": "attach",
+            "port": 9222,
+            "sourceMaps": true,
+            "trace": true
+        }
+    ]
+}
