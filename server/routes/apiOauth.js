@@ -3,6 +3,10 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const config = require('./../../config');
 
+// ##########################
+// ########## All the following routes are open and do not require an JWT
+// ##########################
+
 /* POST sign in user */
 router.post('/sign-in', (req, res) => {
   let User = require("./../model/user/UserSchema");
