@@ -39,8 +39,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
-#History VSCode
-.history
 
-#semantic-ui css
+#semantic-ui
 semantic
+
+#history local
+.history
