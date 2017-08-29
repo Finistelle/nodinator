@@ -2,6 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -14,6 +15,28 @@ import { InMemoryUserDataService } from "./commun/in-memory/in-memory.data";
 import { UserListComponent } from "./user/component/userList.component";
 import { UserService } from "./commun/service/user/user.service";
 import { RepositoryService } from "app/commun/service/repository-service";
+
+const APPROUTES: Routes = [
+  {
+      path: 'user',
+      children: [
+          {
+              path: '',
+              redirectTo: 'user',
+              pathMatch: 'full'
+          },
+          {
+              path: 'user',
+              component: UserListComponent
+          },
+          // {
+          //     path: 'user/:id',
+          //     component: EditUserComponent,
+          //     resolve: { user: DetailUserResolverService }
+          // }
+      ]
+  }
+];
 
 @NgModule({
   declarations: [
@@ -28,7 +51,7 @@ import { RepositoryService } from "app/commun/service/repository-service";
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryUserDataService),
-    
+    RouterModule.forRoot(APPROUTES),
   ],
   providers: [
     { provide: RepositoryService, useClass: UserService },

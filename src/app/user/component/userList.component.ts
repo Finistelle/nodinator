@@ -9,12 +9,12 @@ import { UserService } from "./../../commun/service/user/user.service";
 })
 export class UserListComponent implements  OnInit{
 
-    private _users: User[];
+    private users: User[];
     constructor(private _repo: UserService){}
     
-    ngOnInit(): void {
+    ngOnInit(): void {      
         this._repo.getUsers().subscribe(users => {
-            this._users = users;
+            this.users = users;
         });
     }
 
