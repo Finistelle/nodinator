@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'nod-footer',
     templateUrl: 'footer.component.html'
 })
-export class UserComponent {
+export class FooterComponent {
 
 
 }

@@ -7,16 +7,21 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 // import { RepositoryService } from "./commun/service/repository-service";
 import { UserComponent } from "./user/component/user.component";
+import { LayoutComponent } from "./commun/layout/layout.component";
+import { FooterComponent } from "./commun/layout/footer/footer.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
+    LayoutComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    
   ],
   // providers: [
   //   {provide: RepositoryService, useClass: ApiRepositoryService}
