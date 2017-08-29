@@ -4,22 +4,33 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require('./config');
+const morgan = require('morgan');
 
 // Open  mongoose connection
-mongoose.connect("mongodb://localhost/nodinator:27017");
+mongoose.connect(`mongodb://${config.database_host}/${config.database_name}:${config.database_port}`);
 
 // Get our API routes
 const api = require('./server/routes/api');
+const oauth = require('./server/routes/apiOauth');
 
 const app = express();
+
+// set app secret
+app.set('secret', config.secret);
 
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// use morgan to log requests to the console
+app.use(morgan('dev'));
+
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// set our token provider routes
+app.use('/api/oauth', oauth);
 // Set our api routes
 app.use('/api', api);
 
