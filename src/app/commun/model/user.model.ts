@@ -3,7 +3,6 @@ export class User {
     nom: string;
     description: string;
     categorie: TypeCategorieUser;
-
 }
 
 export declare type TypeCategorieUser = 'Client' | 'Visiteur' | 'Administrateur';

@@ -1,0 +1,11 @@
+<div class="row">
+
+    <div *ngFor="let user of users">
+        {{ user.nom }}
+
+        <!-- <nod-user></nod-user> -->
+    </div>
+    <div *ngIf="!users">
+        <p>pas d'utilisateur</p>
+    </div>
+</div>
