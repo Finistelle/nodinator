@@ -3,6 +3,62 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const config = require('./../../config');
 
+// ##########################
+// ########## All the following routes are open and do not require an JWT
+// ##########################
+
+/* POST sign in user */
+router.post('/sign-in', (req, res) => {
+  let User = require("./../model/user/UserSchema");
+  user = new User();
+  if (null == req.body.firstName) {
+    return res.json({
+      "success": false,
+      "error": "malformed request missing argument firstName"
+    });
+  } else {
+    user.firstName = req.body.firstName;
+  }
+  if (null == req.body.lastName) {
+    return res.json({
+      "success": false,
+      "error": "malformed request missing argument lastName"
+    });
+  } else {
+    user.lastName = req.body.lastName;
+  }
+  if (null == req.body.password) {
+    return res.json({
+      "success": false,
+      "error": "malformed request missing argument password"
+    });
+  } else {
+    user.password = req.body.password;
+  }
+  if (null == req.body.email) {
+    return res.json({
+      "success": false,
+      "error": "malformed request missing argument email"
+    });
+  } else {
+    user.email = req.body.email;
+  }
+  user.roles.push('ROLE_USER');
+  try {
+    User.create(user);
+    res.json({
+      "success":true,
+      "user": user
+    });
+  } catch (e) {
+    res.json({
+      "success": false,
+      "error": e.message
+    })
+  }
+});
+
+/* POST authenticate user */
 router.post('/authenticate', (req, res) => {
   let User = require("./../model/user/UserSchema");
   User.findOne({

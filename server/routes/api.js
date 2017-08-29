@@ -13,6 +13,10 @@ router.get('/', (req, res) => {
   res.send('api works');
 });
 
+//############################
+//######### User
+//############################
+
 /* GET all users. */
 router.get('/users', (req, res) => {
 
@@ -26,22 +30,19 @@ router.get('/users', (req, res) => {
   })
 });
 
-router.get('/user/create', (req, res) => {
-  let User = require("./../model/user/UserSchema");
-  var nick = new User({
-    firstName: 'Nick',
-    lastName: 'pouet',
-    email: 'test@test.com',
-    password: 'password'
-  });
+/* GET user by id */
+router.get('/user/:id', (req, res) => {
+  //TODO implements this route
+});
 
-  // save the sample user
-  nick.save(function(err) {
-    if (err) throw err;
+/* PUT update user information */
+router.put('/user/:id', (req, res) => {
+  //TODO implements this route
+});
 
-    console.log('User saved successfully');
-    res.json({ success: true });
-  });
+/* DELETE delete user by id */
+router.delete('/user/:id', (req, res) => {
+  //TODO implements this route
 });
 
 module.exports = router;

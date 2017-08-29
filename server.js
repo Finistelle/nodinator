@@ -11,8 +11,8 @@ const morgan = require('morgan');
 mongoose.connect(`mongodb://${config.database_host}/${config.database_name}:${config.database_port}`);
 
 // Get our API routes
-const api = require('./server/routes/api');
 const oauth = require('./server/routes/apiOauth');
+const api = require('./server/routes/api');
 
 const app = express();
 
