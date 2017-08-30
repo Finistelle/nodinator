@@ -6,7 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start:dev": "SET NODE_ENV=dev && node server.js",
-    "start:prod": "SET NODE_ENV=prod && node server.js",
+    "start": "SET NODE_ENV=default && node server.js",
     "test:api": "mocha --timeout 10000",
     "generator:content": "node server/data/contentGenerator",
     "test": "ng test",
