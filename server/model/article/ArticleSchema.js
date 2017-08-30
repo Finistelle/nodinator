@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
 let ArticleSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  slug: String,
-  status: String,
+  title: {type: String, required: true},
+  content: {type: String, required: true},
+  slug: {type: String, unique: true},
+  status: {type: String},
   user_id: mongoose.Schema.ObjectId
 });
 
