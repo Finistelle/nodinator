@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
-const config = require('./../../config');
+const config = require('./../../config/config_default');
 const Article = require('./../model/article/ArticleSchema');
 const User = require('./../model/user/UserSchema');
 
