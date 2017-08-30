@@ -24,10 +24,6 @@ router.get('/users', (req, res) => {
   })
 });
 
-let findUser = function () {
-
-}
-
 /* GET user by id */
 router.get('/user/:id', (req, res) => {
   let id = req.params.id;
