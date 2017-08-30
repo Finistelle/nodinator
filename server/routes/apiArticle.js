@@ -35,6 +35,21 @@ router.get('/article/:id', (req, res) => {
   });
 });
 
+/* POST add new article */
+router.post('/article', (req, res) => {
+  let article = new Article(req.body);
+  article.save((err, createdArticle) => {
+    if (err) return res.json({
+      "success": false,
+      "error":err.message
+    });
+    res.json({
+      "success": true,
+      "article": createdArticle
+    })
+  });
+});
+
 /* PUT update article information */
 router.put('/article/:id', (req, res) => {
   Article.findById(req.params.id, (err, article) => {
@@ -47,14 +62,14 @@ router.put('/article/:id', (req, res) => {
     article.slug = req.body.slug || article.slug;
     article.status = req.body.status || article.status;
 
-    article.save((err, article) => {
+    article.save((err, articleUpdated) => {
       if (err) return res.json({
         "success": false,
         "error": err.message
       });
       res.json({
         "success": true,
-        "article": article
+        "article": articleUpdated
       })
     });
   });
