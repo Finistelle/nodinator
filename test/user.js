@@ -14,13 +14,13 @@ chai.use(chaiHttp);
 
 // Empty database before test
 describe('User', () => {
-  beforeEach((done) => {
+  before((done) => {
     User.remove({}, (err) => {
       done();
     });
   });
 
-  describe('/GET users', () => {
+  describe('/GET empty users', () => {
     it('it should get 200 response with empty result', (done) => {
       "use strict";
       chai.request(server)
@@ -31,5 +31,34 @@ describe('User', () => {
           done();
         })
     })
-  })
+  });
+});
+
+describe('User', () => {
+  beforeEach((done) => {
+    User.create({
+      firstName: 'jean',
+      lastName: 'test',
+      roles: 'ROLE_USER',
+      password: 'test',
+      email: 'test@test.com'
+    }, (err) => {
+      done();
+    });
+  });
+
+  describe('/GET one users', () => {
+    it('it should get 200 response with one result', (done) => {
+      chai.request(server)
+        .get('/users')
+        .end((err, res) => {
+          console.log(res);
+          res.should.have.status(200);
+          res.body.should.be.eql({
+            firstName: 'jean'
+          });
+          done();
+        })
+    })
+  });
 });
