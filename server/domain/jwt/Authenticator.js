@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('./../../../config');
+const server = require('./../../../server');
 
 class Authenticator {
 
@@ -11,7 +11,7 @@ class Authenticator {
     if (token) {
 
       // verifies secret and checks exp
-      jwt.verify(token, config.secret, function(err, decoded) {
+      jwt.verify(token, server.config.secret, function(err, decoded) {
         if (err) {
           return res.json({ success: false, message: 'Failed to authenticate token.' });
         } else {
