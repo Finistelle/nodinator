@@ -1,35 +1,36 @@
 <div *ngIf="user">
-
-    <form class="ui form">
+    <!-- ngForm ajoute des fonctionnalités comme la validation -->
+    <form class="ui form" name="ncForm" #ncForm="ngForm" (ngSubmit)="save(ncForm)" novalidate>
         <div class="field">
             <label>Nom:</label>
-            <input [(ngModel)]="user.lastName" placeholder="nom">
+            <input [(ngModel)]="user.lastName" name="lastName" placeholder="nom">
         </div>
         <div class="field">
             <label>Prénom:</label>
-            <input [(ngModel)]="user.firstName" placeholder="prénom">
+            <input [(ngModel)]="user.firstName" name="firstname" placeholder="prénom">
         </div>
         <div class="field">
             <label>Mot de passe:</label>
-            <input [(ngModel)]="user.password" placeholder="mot de passe">
+            <input type="password" [(ngModel)]="user.password" name="password" placeholder="mot de passe">
         </div>
         <div class="field">
             <label>Rôles: </label>
-            <input [(ngModel)]="user.roles" placeholder="roles"> 
+            <input [(ngModel)]="user.roles" name="roles" placeholder="roles"> 
         </div>
         <div class="field">
             <label> Email:</label>
-            <input [(ngModel)]="user.email" placeholder="email">
+            <input [(ngModel)]="user.email" name="email" placeholder="email">
         </div>
 
 
-        <div class="field">
-            <div class="ui checkbox">
-                <input type="checkbox" tabindex="0" class="hidden">
-                <label>I agree to the Terms and Conditions</label>
+
+        <div class="row">
+                <div class="column">
+                    <hr />
+                    <input type="submit" class="button success large" value="Save" [disabled]="ncForm.invalid" />
+                    <a class="button secondary large" routerLink="/">Cancel</a>
+                </div>
             </div>
-        </div>
-        <button class="ui button" type="submit">Submit</button>
     </form>
 
 

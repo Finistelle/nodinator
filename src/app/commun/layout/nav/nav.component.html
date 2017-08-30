@@ -11,7 +11,7 @@
                 </div>
             </div> -->
 
-            <a  [ngClass]="{'active': isActive, '': !isActive}" class="item" routerLink="/">Home</a>
+            <a  [ngClass]="{'active': isActive, '': !isActive}" (click)="redirect('home')">Home</a>
             <a  [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/user">Utilisateur</a>
             <a  [ngClass]="{'active': isActive, '': !isActive}" class="item" routerLink="/articles" class="item">Articles</a>
             <div class="right item">

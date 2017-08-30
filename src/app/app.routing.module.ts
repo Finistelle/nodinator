@@ -1,16 +1,23 @@
+import { LoginComponent } from './commun/login/login.component';
+import { AuthGuard } from './commun/service/auth-gard';
+
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from './user/component/user.component';
-import { UserListComponent } from './user/component/userList.component';
+import { RouterModule, Routes, Router } from '@angular/router';
+import { UserComponent } from "./user/component/user.component";
+import { UserListComponent } from "./user/component/userList.component";
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/user', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'user',
     children: [
-      {path: '', component: UserListComponent},
-      { path: 'detail/:id', component: UserComponent }
+      { path: "", canActivateChild: [AuthGuard], component: UserListComponent},
+      { path: 'detail/:id', component: UserComponent, canActivateChild: [AuthGuard] }
     ]
   }
 ];

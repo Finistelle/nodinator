@@ -1,0 +1,113 @@
+<div class="row">
+        <div class="column">
+            <h1>Nouveau compte</h1>
+        </div>
+    </div>
+    
+    <form name="ncForm" #ncForm="ngForm" (ngSubmit)="save(ncForm)" novalidate>
+    
+        <div class="row">
+            <div class="column">
+                <hr />
+                <h2>Informations</h2>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="small-3 columns">
+                <label for="login" class="middle">Login</label>
+            </div>
+            <div class="small-9 columns">
+                <input type="text" [(ngModel)]="user.login" name="login" minlength="5" required #login="ngModel">
+                <p *ngIf="login.errors?.minlength && login.touched" class="help-text">Min 5 !!</p>
+                <p *ngIf="login.errors?.required && login.touched" class="help-text">Obligatoire</p>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="small-3 columns">
+                <label for="password" class="middle">password</label>
+            </div>
+            <div class="small-9 columns">
+                <input type="text" [(ngModel)]="user.password" name="password" #password="ngModel">
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="small-3 columns">
+                <label for="confirmPassword" class="middle">confirmPassword</label>
+            </div>
+            <div class="small-9 columns">
+                <input type="text" [(ngModel)]="user.confirmPassword" name="confirmPassword" #confirmPassword="ngModel" frmEqualField="password">
+            </div>
+            <p *ngIf="confirmPassword.errors && password.touched && confirmPassword.touched" class="help-text">
+                {{confirmPassword.errors.msg}}
+            </p>      
+        </div>
+    
+        <div class="row">
+            <div class="small-3 columns">
+                <label for="sexe" class="middle">Sexe</label>
+            </div>
+            <div class="small-9 columns">
+                <frm-sexe-selector [(ngModel)]="user.sexe" name="sexe" #sexe="ngModel" required></frm-sexe-selector>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="column">
+                <hr />
+                <h2>Contact</h2>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="small-3 columns">
+                <label for="typeContact" class="middle">Type</label>
+            </div>
+            <fieldset class="small-9 columns">
+                <input type="radio" [(ngModel)]="user.typeContact" value="byMail" name="typeContact" required id="byMail" />
+                <label for="byMail">Mail</label>
+                <input type="radio" [(ngModel)]="user.typeContact" value="byPhone" name="typeContact" required id="byPhone" />
+                <label for="byPhone">Phone</label>
+            </fieldset>
+        </div>
+    
+        <div class="row" *ngIf="user.typeContact==='byPhone'">
+            <div class="small-3 columns">
+                <label for="phone" class="middle">phone</label>
+            </div>
+            <div class="small-9 columns">
+                <input type="text" [(ngModel)]="user.phone" name="phone" #phone="ngModel" required>
+            </div>
+        </div>
+    
+    
+        <div class="row" *ngIf="user.typeContact==='byMail'">
+            <div class="small-3 columns">
+                <label for="email" class="middle">email</label>
+            </div>
+            <div class="small-9 columns">
+                <input type="text" [(ngModel)]="user.email" name="email" #email="ngModel" required>
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="small-3 columns">
+                <label for="cgu" class="middle">J'accepte ...</label>
+            </div>
+            <div class="small-9 columns">
+                <input type="checkbox" [(ngModel)]="user.cgu" name="cgu" #cgu="ngModel" required id="cgu"><label for="cgu">Oui</label>
+            </div>
+        </div>
+    
+    
+        <div class="row">
+            <div class="column">
+                <hr />
+                <input type="submit" class="button success large" value="Save" [disabled]="ncForm.invalid" />
+                <a class="button secondary large" routerLink="/">Cancel</a>
+            </div>
+        </div>
+    
+    </form>

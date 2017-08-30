@@ -1,27 +1,58 @@
 import { HttpService } from './../../http/http.service';
 import { UserRepositoryService } from './../repository-service';
 import { Observable } from 'rxjs/Rx';
-import {Headers, Http,  Response} from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { User, TypeCategorieUser } from "./../../model/user.model";
+import { AuthService } from "app/commun/service/auth-gard-service";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class UserService extends UserRepositoryService {
-
-
     private _categories: TypeCategorieUser[] = ['Client', 'Visiteur', 'Administrateur'];
 
-    constructor(private _http: HttpService) {
+    constructor( private _http: Http, private _auth: AuthService, private _router: Router) {
         super();
     }
-    public setHeader(token: string): Headers {
-        let h = new Headers();
-        h.append("x-access-token", token);
-        return h;
+
+    public createAccount(user: User): Observable<string> {
+        throw new Error("Method not implemented.");
     }
+    public getAuthentification(): Observable<string> {
+        throw new Error("Method not implemented.");
+    }
+    private setHeader(): Headers | undefined {
+        let token = this._auth.getToken();
+        if (token) {
+            let headers = new Headers();
+            headers.append("x-access-token", token);
+            return headers;
+        } else {
+            this._router.navigate(['/login']);
+        }
+    }
+
+    
+
+    public addUser(user: User): Observable<User> {
+        let headers = this.setHeader();
+        return this._http.post("/api/sign-in", user, { headers })
+        .map((res: Response) => <User>res.json())
+        .catch((err: Response) => { return this.error(err); });
+    }
+
+
+    public authentificate(user: User): Observable<string> {
+     
+        return this._http.post("/api/sign-in", user)
+        .map((res: Response) => <string>res.json())
+        .catch((err: Response) => { return this.error(err); });
+    }
+    
+
+
     public getUsers(): Observable<User[]> {
-        let token = "";
-        return this._http.get('/api/users',)
+        return this._http.get('/api/users', )
             //.delay(1000)
             .map((res: Response) => {
 
@@ -35,6 +66,15 @@ export class UserService extends UserRepositoryService {
 
     public getRoles(): Observable<string[]> {
         return Observable.of(this._categories);
+    }
+
+    private error(error: Response): Observable<any> {
+        if (error.status === 401 || error.status === 403) {
+            this._router.navigateByUrl('/login');
+            return Observable.throw(error);
+        } else {
+            return Observable.throw(error);
+        }
     }
 
 }
