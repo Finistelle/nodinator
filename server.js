@@ -10,12 +10,13 @@ const config = require(configDesignation);
 const morgan = require('morgan');
 
 // Open  mongoose connection
-mongoose.connect(`mongodb://${config.database_host}/${config.database_name}:${config.database_port}`);
+mongoose.connect(`mongodb://${config.database_host}:${config.database_port}/${config.database_name}`);
 
 // Get our API routes
 const oauth = require('./server/routes/apiOauth');
 const api = require('./server/routes/api');
 const apiUser = require('./server/routes/apiUser');
+const apiArticle = require('./server/routes/apiArticle');
 
 // load express
 const app = express();
@@ -39,6 +40,8 @@ app.use('/api/oauth', oauth);
 app.use('/api', api);
 // Set our user api routes
 app.use('/api', apiUser);
+// Set our article api routes
+app.use('/api', apiArticle);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

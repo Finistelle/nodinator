@@ -5,7 +5,8 @@ let UserSchema = mongoose.Schema({
   lastName: {type: String, required: true},
   roles: Array,
   password: {type: String, required: true},
-  email: {type: String, required: true, unique: true}
+  email: {type: String, required: true, unique: true},
+  articles: [{type: mongoose.Schema.ObjectId, ref: 'Article'}]
 });
 
 let UserModel = mongoose.model('User', UserSchema);
