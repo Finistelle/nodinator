@@ -43,6 +43,7 @@
     "chai-http": "^3.0.0",
     "codelyzer": "~2.0.0-beta.1",
     "cross-env": "^5.0.5",
+    "faker": "^4.1.0",
     "jasmine-core": "2.5.2",
     "jasmine-spec-reporter": "2.5.0",
     "karma": "1.2.0",

@@ -17,6 +17,18 @@ describe('Article', () => {
   });
 
   describe('Article', () => {
+    it('it should get 403 response with an success: false result', (done) => {
+      chai.request(server)
+        .get('/api/articles')
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.eql({
+            "message": "No token provided.",
+            "success": false
+          });
+          done();
+        })
+    });
     it('should list ALL articles on /articles GET', (done) => {
       chai.request(server)
         .get('/articles')
@@ -42,31 +54,6 @@ describe('Article', () => {
             done();
           });
       });
-    });
-    it('should add a SINGLE article on /article POST');
-    it('should update a SINGLE article on /article/<id> PUT', (done) => {
-      let newArticle = new Article({
-        title: 'My awesome Title',
-        content: 'My awesome content.',
-        slug: 'my-awesome-slug',
-        status: 'DRAFT',
-      });
-      newArticle.save((err, article) => {
-        chai.request(server)
-          .get('/article/' + article.id)
-          .end((err, res) => {
-            res.should.have.status(200);
-            chai.request(server)
-              .put('/article/' + article.id)
-              .send({title: 'My new Title'})
-              .end((error, response) => {
-                response.should.have.status(200);
-                response.body.should.be.a('object');
-                done();
-              });
-          });
-      });
-      it('should delete a SINGLE article on /article/<id> DELETE');
     });
   });
 });
