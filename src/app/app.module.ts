@@ -14,29 +14,29 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryUserDataService } from "./commun/in-memory/in-memory.data";
 import { UserListComponent } from "./user/component/userList.component";
 import { UserService } from "./commun/service/user/user.service";
-import { RepositoryService } from "app/commun/service/repository-service";
+import { UserRepositoryService } from "app/commun/service/repository-service";
+import { AppRoutingModule } from "./app.routing.module";
 
-const APPROUTES: Routes = [
-  {
-      path: 'user',
-      children: [
-          {
-              path: '',
-              redirectTo: 'user',
-              pathMatch: 'full'
-          },
-          {
-              path: 'user',
-              component: UserListComponent
-          },
-          // {
-          //     path: 'user/:id',
-          //     component: EditUserComponent,
-          //     resolve: { user: DetailUserResolverService }
-          // }
-      ]
-  }
-];
+// const APPROUTES: Routes = [
+//   {
+//       path: 'user',
+//       children: [
+//           {
+//               path: '',
+//               redirectTo: 'user',
+//               pathMatch: 'full'
+//           },
+//           {
+//               path: 'user',
+//               component: UserListComponent
+//           },
+//           // {
+//           //     path: 'user/:id',
+//           //     component: EditUserComponent
+//           // }
+//       ]
+//   }
+// ];
 
 @NgModule({
   declarations: [
@@ -51,10 +51,11 @@ const APPROUTES: Routes = [
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryUserDataService),
-    RouterModule.forRoot(APPROUTES),
+    // RouterModule.forRoot(APPROUTES),
+    AppRoutingModule
   ],
   providers: [
-    { provide: RepositoryService, useClass: UserService },
+    { provide: UserRepositoryService, useClass: UserService },
     UserService
   ],
   bootstrap: [AppComponent]

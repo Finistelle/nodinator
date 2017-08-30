@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { User } from "./../model/user.model";
 
 @Injectable()
-export abstract class RepositoryService {
+export abstract class UserRepositoryService {
 
     public abstract getUsers(): Observable<User[]>;
 

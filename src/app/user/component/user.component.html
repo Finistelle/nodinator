@@ -1,3 +1,12 @@
-<input [(ngModel)]="user.nom" placeholder="nom">
-<input [(ngModel)]="user.description" placeholder="description">
-<input [(ngModel)]="user.categorie" placeholder="nom">
+<div *ngIf="user">
+
+    <input [(ngModel)]="user.lastName" placeholder="lastName">
+    <input [(ngModel)]="user.firstName" placeholder="firstName">
+    <input [(ngModel)]="user.roles" placeholder="roles">
+    <input [(ngModel)]="user.email" placeholder="email">
+
+</div>
+<div *ngIf="!user">
+    pas d'utilisateur
+</div>
+        
