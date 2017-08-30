@@ -1,0 +1,40 @@
+<div *ngIf="user">
+
+    <form class="ui form">
+        <div class="field">
+            <label>Nom:</label>
+            <input [(ngModel)]="user.lastName" placeholder="nom">
+        </div>
+        <div class="field">
+            <label>Prénom:</label>
+            <input [(ngModel)]="user.firstName" placeholder="prénom">
+        </div>
+        <div class="field">
+            <label>Mot de passe:</label>
+            <input [(ngModel)]="user.password" placeholder="mot de passe">
+        </div>
+        <div class="field">
+            <label>Rôles: </label>
+            <input [(ngModel)]="user.roles" placeholder="roles"> 
+        </div>
+        <div class="field">
+            <label> Email:</label>
+            <input [(ngModel)]="user.email" placeholder="email">
+        </div>
+
+
+        <div class="field">
+            <div class="ui checkbox">
+                <input type="checkbox" tabindex="0" class="hidden">
+                <label>I agree to the Terms and Conditions</label>
+            </div>
+        </div>
+        <button class="ui button" type="submit">Submit</button>
+    </form>
+
+
+
+</div>
+<div *ngIf="!user">
+    pas d'utilisateur
+</div>
