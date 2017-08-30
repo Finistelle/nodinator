@@ -13,7 +13,9 @@ mongoose.connect(`mongodb://${config.database_host}:${config.database_port}/${co
 // Get our API routes
 const oauth = require('./server/routes/apiOauth');
 const api = require('./server/routes/api');
+const apiUser = require('./server/routes/apiUser');
 
+// load express
 const app = express();
 
 // set app secret
@@ -33,6 +35,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api/oauth', oauth);
 // Set our api routes
 app.use('/api', api);
+// Set our user api routes
+app.use('/api', apiUser);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
