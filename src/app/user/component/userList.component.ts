@@ -26,7 +26,7 @@ export class UserListComponent implements OnInit {
     }
 
     gotoDetail(): void {
-        this.router.navigate(['/detail', this.selectedUser.id]);
+        this.router.navigate(['user/detail', this.selectedUser.id]);
     }
 
 }
