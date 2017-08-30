@@ -48,7 +48,9 @@ describe('User', () => {
       lastName: 'test',
       roles: 'ROLE_USER',
       password: 'test',
-      email: 'test@test.com'
+      email: 'test@test.com',
+      created_at: "2017-08-30T12:21:14.971Z",
+      updated_at: "2017-08-30T12:21:14.971Z"
     }, (err) => {
       done();
     });
@@ -74,10 +76,13 @@ describe('User', () => {
                 "__v": 0,
                 "_id": "59a69423454170614a76a900",
                 "articles": [],
+                "orders": [],
                 "email": "test@test.com",
                 "firstName": "jean",
                 "lastName": "test",
                 "password": "test",
+                "created_at": "2017-08-30T12:21:14.971Z",
+                "updated_at": "2017-08-30T12:21:14.971Z",
                 "roles": [
                   "ROLE_USER"
                 ]
