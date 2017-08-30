@@ -3,7 +3,6 @@ import { User } from './../../commun/model/user.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { UserService } from "./../../commun/service/user/user.service";
-// import { RepositoryService } from "./../../commun/service/repository-service";
 
 @Component({
     selector: 'nod-user-list',

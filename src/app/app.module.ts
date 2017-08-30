@@ -8,7 +8,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 
 import { AppComponent } from './app.component';
-// import { RepositoryService } from "./commun/service/repository-service";
 import { UserComponent } from "./user/component/user.component";
 import { LayoutComponent } from "./commun/layout/layout.component";
 import { FooterComponent } from "./commun/layout/footer/footer.component";
@@ -19,26 +18,6 @@ import { UserService } from "./commun/service/user/user.service";
 import { UserRepositoryService } from "app/commun/service/repository-service";
 import { AppRoutingModule } from "./app.routing.module";
 
-// const APPROUTES: Routes = [
-//   {
-//       path: 'user',
-//       children: [
-//           {
-//               path: '',
-//               redirectTo: 'user',
-//               pathMatch: 'full'
-//           },
-//           {
-//               path: 'user',
-//               component: UserListComponent
-//           },
-//           // {
-//           //     path: 'user/:id',
-//           //     component: EditUserComponent
-//           // }
-//       ]
-//   }
-// ];
 
 @NgModule({
   declarations: [
@@ -60,13 +39,7 @@ import { AppRoutingModule } from "./app.routing.module";
   providers: [
     { provide: UserRepositoryService, useClass: UserService },
     UserService,
-    {
-      provide: HttpService,
-      useFactory: (backend: XHRBackend, options: RequestOptions) => {
-        return new HttpService(backend, options);
-      },
-      deps: [XHRBackend, RequestOptions]
-    }
+    HttpService
   ],
   bootstrap: [AppComponent]
 
