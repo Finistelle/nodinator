@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const config = require('./../../config');
+const server = require('./../../server');
 
 // ##########################
 // ########## All the following routes are open and do not require an JWT
@@ -78,7 +78,7 @@ router.post('/authenticate', (req, res) => {
 
         // if user is found and password is right
         // create a token
-        let token = jwt.sign(user, config.secret, {
+        let token = jwt.sign(user, server.config.secret, {
           expiresIn: 1440 // expires in 24 hours
         });
 

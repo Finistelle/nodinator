@@ -1,10 +1,12 @@
+let configDesignation = `./config/config_${process.env.NODE_ENV}`;
+
 // Get dependencies
 const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const config = require('./config');
+const config = require(configDesignation);
 const morgan = require('morgan');
 
 // Open  mongoose connection
@@ -27,7 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // use morgan to log requests to the console
-app.use(morgan('dev'));
+if (process.env.NODE_ENV !== "test") app.use(morgan('combined'));
 
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -61,3 +63,5 @@ const server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 server.listen(port, () => console.log(`API running on localhost:${port}`));
+
+module.exports = server;
