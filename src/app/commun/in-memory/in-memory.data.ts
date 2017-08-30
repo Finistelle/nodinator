@@ -6,6 +6,7 @@ export class InMemoryUserDataService implements InMemoryDbService {
                 id: 1,
                 lastName: 'Mr. Nice',
                 firstName: "gentil",
+                password:"",
                 roles: "Client",
                 email: "nice@gmail.com",
                 articles: ["test"]
@@ -14,6 +15,7 @@ export class InMemoryUserDataService implements InMemoryDbService {
                 id: 2,
                 lastName: 'Bombasto',
                 firstName: "bombadier fou",
+                password:"",
                 roles: "Administrateur",
                 email: "bombadier@gmail.com",
                 articles: ["test"]
@@ -22,6 +24,7 @@ export class InMemoryUserDataService implements InMemoryDbService {
                 id: 3,
                 lastName: 'Magneta',
                 firstName: "aimant vivant",
+                password:"",
                 roles: "Visiteur",
                 email: "aimant@gmail.com",
                 articles: ["test"]

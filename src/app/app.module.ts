@@ -1,3 +1,4 @@
+import { NavComponent } from './commun/layout/nav/nav.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -44,14 +45,14 @@ import { AppRoutingModule } from "./app.routing.module";
     UserComponent,
     LayoutComponent,
     FooterComponent,
-    UserListComponent
+    UserListComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryUserDataService),
-    // RouterModule.forRoot(APPROUTES),
     AppRoutingModule
   ],
   providers: [
