@@ -45,12 +45,26 @@ router.delete('/user/:id', (req, res) => {
   //TODO implements this route
 });
 
+//############################
+//######### Article
+//############################
+
 /* GET all articles. */
 router.get('/articles',(req, res) => {
   let Article = require('./../model/article/ArticleSchema');
   Article.find((err, articles) => {
     if (err) res.json({"error": err.message});
-    res.json({"articles": articles});
+    res.json(articles);
   });
 });
+
+/* GET article by ID */
+router.get('/article/:id', (req, res) => {
+  let Article = require('./../model/article/ArticleSchema');
+  Article.findById(req.params.id, (err, article) => {
+    if (err) res.json({"error": err.message});
+    res.json(article);
+  });
+});
+
 module.exports = router;

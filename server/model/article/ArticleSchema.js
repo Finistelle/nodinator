@@ -5,8 +5,9 @@ let ArticleSchema = new mongoose.Schema({
   content: String,
   slug: String,
   status: String,
+  user_id: mongoose.Schema.ObjectId
 });
 
-let ArticleModel = mongoose.model('Article', ArticleSchema);
+const ArticleModel = mongoose.model('Article', ArticleSchema);
 
 module.exports = ArticleModel;
