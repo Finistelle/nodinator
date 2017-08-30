@@ -1,3 +1,4 @@
+import { HttpService } from './../../http/http.service';
 import { UserRepositoryService } from './../repository-service';
 import { Observable } from 'rxjs/Rx';
 import { Http, Response } from '@angular/http';
@@ -10,12 +11,17 @@ export class UserService extends UserRepositoryService {
 
     private _categories: TypeCategorieUser[] = ['Client', 'Visiteur', 'Administrateur'];
 
-    constructor(private _http: Http) {
+    constructor(private _http: HttpService) {
         super();
     }
-    
+    public setHeader(token: string): Headers {
+        let h = new Headers();
+        h.append("x-access-token", token);
+        return h;
+    }
     public getUsers(): Observable<User[]> {
-        return this._http.get('/api/users')
+        let token = "";
+        return this._http.get('/api/users',)
             //.delay(1000)
             .map((res: Response) => {
 

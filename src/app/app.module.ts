@@ -1,10 +1,11 @@
+import { HttpService} from './commun/http/http.service';
 import { NavComponent } from './commun/layout/nav/nav.component';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpModule, RequestOptions, XHRBackend } from '@angular/http';
 
 import { AppComponent } from './app.component';
 // import { RepositoryService } from "./commun/service/repository-service";
@@ -53,11 +54,19 @@ import { AppRoutingModule } from "./app.routing.module";
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(InMemoryUserDataService),
-    AppRoutingModule
+    AppRoutingModule,
+
   ],
   providers: [
     { provide: UserRepositoryService, useClass: UserService },
-    UserService
+    UserService,
+    {
+      provide: HttpService,
+      useFactory: (backend: XHRBackend, options: RequestOptions) => {
+        return new HttpService(backend, options);
+      },
+      deps: [XHRBackend, RequestOptions]
+    }
   ],
   bootstrap: [AppComponent]
 
