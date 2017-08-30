@@ -1,5 +1,7 @@
+let configDesignation = `./../../../config/config_${process.env.NODE_ENV}`;
+
 const jwt = require('jsonwebtoken');
-const server = require('./../../../server');
+const config = require(configDesignation);
 
 class Authenticator {
 
@@ -11,7 +13,7 @@ class Authenticator {
     if (token) {
 
       // verifies secret and checks exp
-      jwt.verify(token, server.config.secret, function(err, decoded) {
+      jwt.verify(token, config.secret, function(err, decoded) {
         if (err) {
           return res.json({ success: false, message: 'Failed to authenticate token.' });
         } else {

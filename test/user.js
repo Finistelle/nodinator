@@ -1,12 +1,12 @@
 process.env.NODE_ENV = "test";
 
-let mongoose = require("mongoose");
-let User = require("./../server/model/user/UserSchema");
+const mongoose = require("mongoose");
+const User = require("./../server/model/user/UserSchema");
 
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('./../server');
-let should = chai.should();
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const server = require('./../server');
+const should = chai.should();
 
 /* Test GET /users */
 /* With an empty database I should'nt get any User */
@@ -21,13 +21,16 @@ describe('User', () => {
   });
 
   describe('/GET empty users', () => {
-    it('it should get 200 response with empty result', (done) => {
+    it('it should get 403 response with an success: false result', (done) => {
       "use strict";
       chai.request(server)
-        .get('/users')
+        .get('/api/users')
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.eql({});
+          res.should.have.status(403);
+          res.body.should.be.eql({
+            "message": "No token provided.",
+            "success": false
+          });
           done();
         })
     })
@@ -35,8 +38,12 @@ describe('User', () => {
 });
 
 describe('User', () => {
+
+  let token = '';
+
   beforeEach((done) => {
     User.create({
+      _id: '59a69423454170614a76a900',
       firstName: 'jean',
       lastName: 'test',
       roles: 'ROLE_USER',
@@ -49,16 +56,37 @@ describe('User', () => {
 
   describe('/GET one users', () => {
     it('it should get 200 response with one result', (done) => {
-      chai.request(server)
-        .get('/users')
-        .end((err, res) => {
-          console.log(res);
+      let user = {
+        email: 'test@test.com',
+        password: 'test'
+      };
+      let tokenReq = chai.request(server).post('/api/oauth/authenticate').send(user);
+      tokenReq.end((err, res) => {
+        token = res.body.token;
+        let req = chai.request(server)
+          .get('/api/users')
+          .set('x-access-token', token);
+        req.end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.eql({
-            firstName: 'jean'
+            "users": [
+              {
+                "__v": 0,
+                "_id": "59a69423454170614a76a900",
+                "articles": [],
+                "email": "test@test.com",
+                "firstName": "jean",
+                "lastName": "test",
+                "password": "test",
+                "roles": [
+                  "ROLE_USER"
+                ]
+              }
+            ]
           });
           done();
-        })
+        });
+      });
     })
   });
 });
