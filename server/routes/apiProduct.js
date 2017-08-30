@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Authentitcator = require('./../domain/jwt/Authenticator');
 const User = require("./../model/user/UserSchema");
-const Product = require("./../model/user/ProductSchema");
+const Product = require("./../model/product/ProductSchema");
 
 let authenticator = new Authentitcator();
 
@@ -100,3 +100,5 @@ router.delete('/product/:id', (req, res) => {
     });
   });
 });
+
+module.exports = router;

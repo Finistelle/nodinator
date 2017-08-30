@@ -17,6 +17,8 @@ const oauth = require('./server/routes/apiOauth');
 const api = require('./server/routes/api');
 const apiUser = require('./server/routes/apiUser');
 const apiArticle = require('./server/routes/apiArticle');
+const apiOrder = require('./server/routes/apiOrder');
+const apiProduct = require('./server/routes/apiProduct');
 
 // load express
 const app = express();
@@ -42,6 +44,10 @@ app.use('/api', api);
 app.use('/api', apiUser);
 // Set our article api routes
 app.use('/api', apiArticle);
+// Set our product api routes
+app.use('/api', apiProduct);
+// Set our order api routes
+app.use('/api', apiOrder);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
