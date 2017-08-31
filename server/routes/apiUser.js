@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const Checker = require('./../domain/acl/Checker');
 const Authentitcator = require('./../domain/jwt/Authenticator');
 const User = require("./../model/user/UserSchema");
 
 let authenticator = new Authentitcator();
+let checker = new Checker();
 
 router.use(function (req, res, next) {
   authenticator.authenticate(req, res, next);
@@ -40,7 +42,10 @@ router.get('/user/:id', (req, res) => {
 });
 
 /* PUT update user information */
-router.put('/user/:id', (req, res) => {
+router.put('/user/:id', (req, res, next) => {
+  let permission = ['ROLE_ADMIN', 'ROLE_USER'];
+  checker.authorize(req, res, next, permission);
+}, (req, res) => {
   let id = req.params.id;
   User.findById(id, (err, user) => {
     if (err) return res.json({
@@ -64,7 +69,10 @@ router.put('/user/:id', (req, res) => {
 });
 
 /* DELETE delete user by id */
-router.delete('/user/:id', (req, res) => {
+router.delete('/user/:id', (req, res, next) => {
+  let permission = ['ROLE_ADMIN', 'ROLE_USER'];
+  checker.authorize(req, res, next, permission);
+}, (req, res) => {
   let id = req.params.id;
   User.remove({"_id":id}, (err) => {
     if (err) return res.json({
