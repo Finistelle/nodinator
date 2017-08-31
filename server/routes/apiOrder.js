@@ -49,7 +49,7 @@ router.post('/order/:userId', (req, res) => {
   User.findById(id, (err, user) => {
     if (err) return res.json({"success": false, "error": err.message});
     let order = new Order();
-    if (null != req.body.products) order.products = req.body.products;
+    if (null != req.body.products) order.products.push(req.body.products);
     if (null != user) order.customer = user;
     Order.save(order, (err) => {
       if (err) return res.json({
@@ -66,12 +66,44 @@ router.post('/order/:userId', (req, res) => {
 
 /* PUT update a product */
 router.put('/order/:id', (req, res) => {
-  // TODO implements this route
+  let id = req.params.id;
+  Order.findById(id, (err, order) => {
+    if (err) return res.json({
+      "success": false,
+      "error":err.message
+    });
+    req.body.products ? order.products.push(req.body.products) : '';
+    Order.save(order, (err) => {
+      if (err) return res.json({
+        "success": false,
+        "error":err.message
+      });
+      res.json({
+        "success": true,
+        "error": err.message
+      });
+    });
+  });
 });
 
 /* DELETE update a product */
 router.delete('/order/:id', (req, res) => {
-  // TODO implements this route
+  let id = req.params.id;
+  Order.findById(id, (err, order) => {
+    if (err) return res.json({
+      "success": false,
+      "error":err.message
+    });
+    Order.remove(order, (err) => {
+      if (err) return res.json({
+        "success": false,
+        "error":err.message
+      });
+      res.json({
+        "success": true
+      })
+    });
+  });
 });
 
 module.exports = router;
