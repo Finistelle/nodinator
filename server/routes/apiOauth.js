@@ -1,7 +1,9 @@
+let configDesignation = `./../../config/config_${process.env.NODE_ENV}`;
+
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const config = require('./../../config');
+const config = require(configDesignation);
 
 // ##########################
 // ########## All the following routes are open and do not require an JWT

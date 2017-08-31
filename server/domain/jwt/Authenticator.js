@@ -1,5 +1,7 @@
+let configDesignation = `./../../../config/config_${process.env.NODE_ENV}`;
+
 const jwt = require('jsonwebtoken');
-const config = require('./../../../config');
+const config = require(configDesignation);
 
 class Authenticator {
 

@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="columns text-center" style="height: 250px">
+        <h1>S'authentifier</h1>
+        <form class="ui form" name="ncForm" #ncForm="ngForm" (ngSubmit)="login(ncForm)" novalidate>
+            <div class="field">
+                <label>Adresse mail:</label>
+                <input [(ngModel)]="user.email" name="email" placeholder="email">
+            </div>
+            <div class="field">
+                <label>Mot de passe:</label>
+                <input type="password" [(ngModel)]="user.password" name="password" placeholder="mot de passe">
+            </div>
+            <input type="submit" class="ui button" value="Se Connecter" [disabled]="ncForm.invalid" />
+            <a [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/login" class="ui button">S'inscrire</a>
+        </form>
+    </div>
+</div>
