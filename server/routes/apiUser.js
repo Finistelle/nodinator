@@ -9,11 +9,9 @@ let checker = new Checker();
 
 router.use(function (req, res, next) {
   authenticator.authenticate(req, res, next);
+}, (req, res, next) => {
+  checker.authorize(req, res, next, ['ROLE_ADMIN']);
 });
-
-//############################
-//######### User
-//############################
 
 /* GET all users. */
 router.get('/users', (req, res) => {
@@ -26,26 +24,8 @@ router.get('/users', (req, res) => {
   })
 });
 
-/* GET user by id */
-router.get('/user/:id', (req, res) => {
-  let id = req.params.id;
-  User.findById(id, (err, user) => {
-    if (err) return res.json({
-      "success": false,
-      "error":err.message
-    });
-    res.json({
-      "success": true,
-      "user": user
-    });
-  });
-});
-
 /* PUT update user information */
-router.put('/user/:id', (req, res, next) => {
-  let permission = ['ROLE_ADMIN', 'ROLE_USER'];
-  checker.authorize(req, res, next, permission);
-}, (req, res) => {
+router.put('/user/:id', (req, res) => {
   let id = req.params.id;
   User.findById(id, (err, user) => {
     if (err) return res.json({
@@ -69,10 +49,7 @@ router.put('/user/:id', (req, res, next) => {
 });
 
 /* DELETE delete user by id */
-router.delete('/user/:id', (req, res, next) => {
-  let permission = ['ROLE_ADMIN', 'ROLE_USER'];
-  checker.authorize(req, res, next, permission);
-}, (req, res) => {
+router.delete('/user/:id', (req, res) => {
   let id = req.params.id;
   User.remove({"_id":id}, (err) => {
     if (err) return res.json({

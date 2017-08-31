@@ -9,39 +9,12 @@ let checker = new Checker();
 
 router.use((req, res, next) => {
   authenticator.authenticate(req, res, next);
-});
-
-//############################
-//######### Article
-//############################
-
-/* GET all articles. */
-router.get('/articles',(req, res) => {
-  Article.find((err, articles) => {
-    if (err) res.json({"error": err.message});
-    res.json(articles);
-  });
-});
-
-/* GET article by ID */
-router.get('/article/:id', (req, res) => {
-  Article.findById(req.params.id, (err, article) => {
-    if (err) return res.json({
-      "success": false,
-      "error":err.message
-    });
-    res.json({
-      "success": true,
-      "article": article
-    });
-  });
+}, (req, res, next) => {
+  checker.authorize(req, res, next, ['ROLE_ADMIN']);
 });
 
 /* POST add new article */
-router.post('/article', (req, res, next) => {
-  let permission = ['ROLE_ADMIN'];
-  checker.authorize(req, res, next, permission);
-}, (req, res) => {
+router.post('/article', (req, res) => {
   let article = new Article(req.body);
   article.save((err, createdArticle) => {
     if (err) return res.json({
@@ -56,10 +29,7 @@ router.post('/article', (req, res, next) => {
 });
 
 /* PUT update article information */
-router.put('/article/:id', (req, res, next) => {
-  let permission = ['ROLE_ADMIN'];
-  checker.authorize(req, res, next, permission);
-}, (req, res) => {
+router.put('/article/:id', (req, res) => {
   Article.findById(req.params.id, (err, article) => {
     if (err) return res.json({
       "success": false,
@@ -85,9 +55,6 @@ router.put('/article/:id', (req, res, next) => {
 
 /* DELETE article by ID */
 router.delete('/article/:id', (req, res) => {
-  let permission = ['ROLE_ADMIN'];
-  checker.authorize(req, res, next, permission);
-}, (req, res) => {
   Article.findByIdAndRemove(req.params.id, (err) => {
     if (err) return res.json({
       "success": false,

@@ -17,6 +17,8 @@ const oauth = require('./server/routes/apiOauth');
 const api = require('./server/routes/api');
 const apiUser = require('./server/routes/apiUser');
 const apiArticle = require('./server/routes/apiArticle');
+const apiPublicArticle = require('./server/routes/apiPublicArticle');
+const apiPublicUser = require('./server/routes/apiPublicUser');
 
 // load express
 const app = express();
@@ -38,10 +40,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api/oauth', oauth);
 // Set our api routes
 app.use('/api', api);
-// Set our user api routes
-app.use('/api', apiUser);
-// Set our article api routes
-app.use('/api', apiArticle);
+// Set our user private api routes
+app.use('/api/private', apiUser);
+// Set our user public api routes
+app.use('/api/public', apiPublicUser);
+// Set our article private api routes
+app.use('/api/private', apiArticle);
+// Set our article public api routes
+app.use('/api/public', apiPublicArticle);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
