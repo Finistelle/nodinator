@@ -1,41 +1,56 @@
 <div *ngIf="user">
+
+    <div class="ui grid">
+        <div class="eight wide column">
+                Nom : <br>
+                Prénom : <br>
+                Rôles : <br>
+                Email : <br>
+        </div>
+        <div class="eight wide column">
+            {{user.lastName}} <br>
+            {{user.firstName}} <br>
+            {{user.roles}} <br>
+            {{user.email}}<br>
+        </div>
+    </div>
+  
+
+
+</div>
+<div *ngIf="!user">
     <!-- ngForm ajoute des fonctionnalités comme la validation -->
     <form class="ui form" name="ncForm" #ncForm="ngForm" (ngSubmit)="save(ncForm)" novalidate>
         <div class="field">
             <label>Nom:</label>
-            <input [(ngModel)]="user.lastName" name="lastName" placeholder="nom">
+            <input [(ngModel)]="lastName" name="lastName" placeholder="nom">
         </div>
         <div class="field">
             <label>Prénom:</label>
-            <input [(ngModel)]="user.firstName" name="firstname" placeholder="prénom">
+            <input [(ngModel)]="firstName" name="firstname" placeholder="prénom">
         </div>
         <div class="field">
             <label>Mot de passe:</label>
-            <input type="password" [(ngModel)]="user.password" name="password" placeholder="mot de passe">
+            <input type="password" [(ngModel)]="password" name="password" placeholder="mot de passe">
         </div>
         <div class="field">
             <label>Rôles: </label>
-            <input [(ngModel)]="user.roles" name="roles" placeholder="roles"> 
+            <input [(ngModel)]="roles" name="roles" placeholder="roles">
         </div>
         <div class="field">
             <label> Email:</label>
-            <input [(ngModel)]="user.email" name="email" placeholder="email">
+            <input [(ngModel)]="email" name="email" placeholder="email">
         </div>
 
 
 
         <div class="row">
-                <div class="column">
-                    <hr />
-                    <input type="submit" class="button success large" value="Save" [disabled]="ncForm.invalid" />
-                    <a class="button secondary large" routerLink="/">Cancel</a>
-                </div>
+            <div class="column">
+                <hr />
+                <input type="submit" class="button success large" value="Enregistrer" [disabled]="ncForm.invalid" />
+                <a class="button secondary large" routerLink="/">Annuler</a>
             </div>
+        </div>
     </form>
 
-
-
-</div>
-<div *ngIf="!user">
-    pas d'utilisateur
 </div>

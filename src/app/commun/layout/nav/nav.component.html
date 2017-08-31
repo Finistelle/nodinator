@@ -11,12 +11,12 @@
                 </div>
             </div> -->
 
-            <a  [ngClass]="{'active': isActive, '': !isActive}" (click)="redirect('home')">Home</a>
-            <a  [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/user">Utilisateur</a>
-            <a  [ngClass]="{'active': isActive, '': !isActive}" class="item" routerLink="/articles" class="item">Articles</a>
+            <a [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/">Home</a>
+            <a [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/user">Utilisateur</a>
+            <a [ngClass]="{'active': isActive, '': !isActive}" class="item" routerLink="/articles" class="item">Articles</a>
             <div class="right item">
-                <a class="ui inverted button">Se Connecter</a>
-                <a class="ui inverted button">S'inscrire</a>
+                <a [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/login" class="ui inverted button">Se Connecter</a>
+                <a [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/user/form" class="ui inverted button">S'inscrire</a>
             </div>
         </div>
     </div>
