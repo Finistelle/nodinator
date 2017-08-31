@@ -24,11 +24,9 @@ export class NavComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.isAuthenticated =this._auth.$isAuthenticated;
-        //   this.listTab =  [{name:"Accueil", isActive: false, $isActive: false, $name:"Accueil"},{name: "Utilisateur", isActive: false, $isActive: false, $name:"Accueil"}, {name: "Articles", isActive: false, $isActive: false, $name:"Accueil"}];
-    }
+     }
 
     ngOnDestroy(): void {
-        // this.listTab = [];
     }
 
     public get $isAuthenticated(): boolean {

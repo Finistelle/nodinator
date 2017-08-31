@@ -22,7 +22,6 @@ export class UserService extends UserRepositoryService {
         throw new Error("Method not implemented.");
     }
     private setHeader(): Headers | undefined {
-        // let token = this._auth.getToken();
         let token ="";
         if (token) {
             let headers = new Headers();
@@ -36,8 +35,7 @@ export class UserService extends UserRepositoryService {
 
 
     public addUser(user: User): Observable<User> {
-        // let headers = this.setHeader();
-        return this._http.post("/api/oauth/sign-in", user /*, { headers }*/)
+        return this._http.post("/api/oauth/sign-in", user)
             .map((res: Response) => <User>res.json())
             .catch((err: Response) => { return this.error(err); });
     }
@@ -54,7 +52,6 @@ export class UserService extends UserRepositoryService {
 
     public getUsers(): Observable<User[]> {
         return this._http.get('/api/users', )
-            //.delay(1000)
             .map((res: Response) => {
 
                 return res.json().data;
