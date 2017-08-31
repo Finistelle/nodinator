@@ -10,7 +10,7 @@
                 <label>Mot de passe:</label>
                 <input type="password" [(ngModel)]="user.password" name="password" placeholder="mot de passe">
             </div>
-            <input type="submit" class="button success large" value="Se Connecter" [disabled]="ncForm.invalid" />
+            <input type="submit" class="ui button" value="Se Connecter" [disabled]="ncForm.invalid" />
             <a [ngClass]="{'active': isActive, '': !isActive}" class=" item" routerLink="/login" class="ui button">S'inscrire</a>
         </form>
     </div>
