@@ -35,7 +35,7 @@ import { AppRoutingModule } from "./app.routing.module";
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryUserDataService),
+    // InMemoryWebApiModule.forRoot(InMemoryUserDataService),
     AppRoutingModule,
 
   ],

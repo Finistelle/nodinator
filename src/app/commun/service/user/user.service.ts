@@ -11,7 +11,7 @@ import { Router } from "@angular/router";
 export class UserService extends UserRepositoryService {
     private _categories: TypeCategorieUser[] = ['Client', 'Visiteur', 'Administrateur'];
 
-    constructor( private _http: Http, private _auth: AuthService, private _router: Router) {
+    constructor(private _http: Http, private _router: Router) {
         super();
     }
 
@@ -22,7 +22,8 @@ export class UserService extends UserRepositoryService {
         throw new Error("Method not implemented.");
     }
     private setHeader(): Headers | undefined {
-        let token = this._auth.getToken();
+        // let token = this._auth.getToken();
+        let token ="";
         if (token) {
             let headers = new Headers();
             headers.append("x-access-token", token);
@@ -32,23 +33,23 @@ export class UserService extends UserRepositoryService {
         }
     }
 
-    
+
 
     public addUser(user: User): Observable<User> {
-        let headers = this.setHeader();
-        return this._http.post("/api/sign-in", user, { headers })
-        .map((res: Response) => <User>res.json())
-        .catch((err: Response) => { return this.error(err); });
+        // let headers = this.setHeader();
+        return this._http.post("/api/oauth/sign-in", user /*, { headers }*/)
+            .map((res: Response) => <User>res.json())
+            .catch((err: Response) => { return this.error(err); });
     }
 
 
     public authentificate(user: User): Observable<string> {
-     
-        return this._http.post("/api/sign-in", user)
-        .map((res: Response) => <string>res.json())
-        .catch((err: Response) => { return this.error(err); });
+
+        return this._http.post("/api/oauth/authenticate", user)
+            .map((res: Response) => res.json())
+            .catch((err: Response) => { return this.error(err); });
     }
-    
+
 
 
     public getUsers(): Observable<User[]> {

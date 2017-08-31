@@ -1,3 +1,5 @@
+import { User } from './../model/user.model';
+import { NgForm } from '@angular/forms';
 
 
 import { Router } from '@angular/router';
@@ -8,11 +10,15 @@ import { AuthService } from "./../../commun/service/auth-gard-service";
     templateUrl: 'login.component.html'
 })
 export class LoginComponent {
+    private user: User;
 
-    constructor(private _auth: AuthService, private _router:Router) { }
+    constructor(private _auth: AuthService, private _router:Router) { 
+        this.user = new User;
+    }
 
-    login() {
-        this._auth.login();
+    login(form:NgForm):void {
+        console.log("connection");
+        this._auth.login(form, this.user);
         // this._router.navigate(['/catalogue']);
     }
 }
