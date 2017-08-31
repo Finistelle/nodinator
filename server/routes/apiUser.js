@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const Checker = require('./../domain/acl/Checker');
 const Authentitcator = require('./../domain/jwt/Authenticator');
 const User = require("./../model/user/UserSchema");
 
 let authenticator = new Authentitcator();
+let checker = new Checker();
 
 router.use(function (req, res, next) {
   authenticator.authenticate(req, res, next);
+}, (req, res, next) => {
+  checker.authorize(req, res, next, ['ROLE_ADMIN']);
 });
-
-//############################
-//######### User
-//############################
 
 /* GET all users. */
 router.get('/users', (req, res) => {
@@ -22,21 +22,6 @@ router.get('/users', (req, res) => {
     if (errs.length != 0) res.json({"errors": errs});
     res.json({"users": users});
   })
-});
-
-/* GET user by id */
-router.get('/user/:id', (req, res) => {
-  let id = req.params.id;
-  User.findById(id, (err, user) => {
-    if (err) return res.json({
-      "success": false,
-      "error":err.message
-    });
-    res.json({
-      "success": true,
-      "user": user
-    });
-  });
 });
 
 /* PUT update user information */
