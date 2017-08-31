@@ -1,3 +1,5 @@
+import { AuthService } from './commun/service/auth-gard-service';
+import { LoginComponent } from './commun/login/login.component';
 import { HttpService} from './commun/http/http.service';
 import { NavComponent } from './commun/layout/nav/nav.component';
 
@@ -26,20 +28,21 @@ import { AppRoutingModule } from "./app.routing.module";
     LayoutComponent,
     FooterComponent,
     UserListComponent,
-    NavComponent
+    NavComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryUserDataService),
     AppRoutingModule,
 
   ],
   providers: [
     { provide: UserRepositoryService, useClass: UserService },
     UserService,
-    HttpService
+    HttpService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 
