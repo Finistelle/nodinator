@@ -14,17 +14,19 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'user',
+    path: 'users',
     children: [
-      { path: "", canActivateChild: [AuthGuard], component: UserListComponent},
+      { path: "", canActivateChild: [AuthGuard], component: UserListComponent },
       { path: 'detail/:id', component: UserComponent, canActivateChild: [AuthGuard] },
       { path: 'form', component: UserComponent, canActivateChild: [AuthGuard] }
     ]
-  }
+  },
+
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

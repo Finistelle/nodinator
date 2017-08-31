@@ -1,4 +1,5 @@
-import { AuthService } from './commun/service/auth-gard-service';
+import { AuthService } from './commun/service/auth.service';
+
 import { LoginComponent } from './commun/login/login.component';
 import { HttpService} from './commun/http/http.service';
 import { NavComponent } from './commun/layout/nav/nav.component';

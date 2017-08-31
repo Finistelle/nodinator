@@ -6,3 +6,7 @@
     height: 100%;
     position: fixed;
 }
+
+.hidden {
+    display: none;
+}

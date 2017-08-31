@@ -1,4 +1,5 @@
-import { AuthService } from './../../service/auth-gard-service';
+import { AuthService } from './../../service/auth.service';
+
 import { TabComponent } from './tab/tab.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
