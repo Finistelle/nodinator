@@ -13,6 +13,6 @@ let ProductSchema = mongoose.Schema({
 
 ProductSchema.plugin(URLSlugs('title', {field: 'slug'}));
 
-let ProductModel = mongoose.Model('Product', ProductSchema);
+let ProductModel = mongoose.model('Product', ProductSchema);
 
 module.exports = ProductModel;
