@@ -12,6 +12,6 @@ let OrderSchema = mongoose.Schema({
 
 OrderSchema.plugin(URLSlugs('customer.firstName status createdAt', {field: 'slug'}));
 
-let OrderProduct = mongoose.Model('Order', OrderSchema);
+let OrderProduct = mongoose.model('Order', OrderSchema);
 
 module.exports = OrderProduct;

@@ -19,6 +19,8 @@ const apiUser = require('./server/routes/apiUser');
 const apiArticle = require('./server/routes/apiArticle');
 const apiPublicArticle = require('./server/routes/apiPublicArticle');
 const apiPublicUser = require('./server/routes/apiPublicUser');
+const apiOrder = require('./server/routes/apiOrder');
+const apiProduct = require('./server/routes/apiProduct');
 
 // load express
 const app = express();
@@ -48,6 +50,10 @@ app.use('/api/public', apiPublicUser);
 app.use('/api/private', apiArticle);
 // Set our article public api routes
 app.use('/api/public', apiPublicArticle);
+// Set our product api routes
+app.use('/api', apiProduct);
+// Set our order api routes
+app.use('/api', apiOrder);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {

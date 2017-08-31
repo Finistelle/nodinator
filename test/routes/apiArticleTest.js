@@ -3,10 +3,10 @@ process.env.NODE_ENV = "test";
 const mongoose = require("mongoose");
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('./../server');
+const server = require('./../../server');
 let should = chai.should();
-const Article = require('./../server/model/article/ArticleSchema');
-const User = require('./../server/model/user/UserSchema');
+const Article = require('./../../server/model/article/ArticleSchema');
+const User = require('./../../server/model/user/UserSchema');
 
 chai.use(chaiHttp);
 
@@ -63,6 +63,7 @@ describe('Article', () => {
       });
     });
   });
+
   it('should list a SINGLE article on /article/<id> GET', (done) => {
     let user = {
       email: 'sarah@gmail.com',
