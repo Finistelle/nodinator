@@ -15,7 +15,6 @@ export class UserListComponent implements OnInit {
     constructor(private _repo: UserService, private router: Router) { }
 
     ngOnInit(): void {
-        // subscribe lance la requête (autant de requête que de subscribe)
         this._repo.getUsers().subscribe((users: User[]) => {
             this.users = users;
         });
