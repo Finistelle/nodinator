@@ -8,7 +8,7 @@ const config = require('./config');
 const morgan = require('morgan');
 
 // Open  mongoose connection
-mongoose.connect(`mongodb://${config.database_host}/${config.database_name}:${config.database_port}`);
+mongoose.connect(`mongodb://${config.database_host}:${config.database_port}/${config.database_name}`);
 
 // Get our API routes
 const oauth = require('./server/routes/apiOauth');
@@ -42,7 +42,7 @@ app.get('*', (req, res) => {
 /**
  * Get port from environment and store in Express.
  */
-const port = process.env.PORT || '3000';
+const port = config.express_port || '3000';
 app.set('port', port);
 
 /**
@@ -53,4 +53,4 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+server.listen(port, '0.0.0.0', () => console.log(`API running on localhost:${port}`));
