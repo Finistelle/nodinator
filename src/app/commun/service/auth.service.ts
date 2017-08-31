@@ -18,8 +18,6 @@ export class AuthService {
     redirectUrl: string;
     private _token?: string;
     private isAuthenticated: boolean;
-
-
     private localUser: User;
 
 
@@ -32,6 +30,7 @@ export class AuthService {
                 this.isAuthenticated = true;
                 this.localUser = authenticatedUser;
                 this._token = token;
+                this._router.navigateByUrl('/articles');
             });
             return
         }
