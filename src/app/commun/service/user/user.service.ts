@@ -71,7 +71,7 @@ export class UserService extends UserRepositoryService {
         options.headers = new Headers;
         options.headers.set("x-access-token", token)
 
-        return this._http.get('/api/users', options)
+        return this._http.get('/api/private/users', options)
             .map((res: Response) => {
 
                 return res.json().users;
