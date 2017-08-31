@@ -54,7 +54,7 @@ describe('Article', () => {
     tokenReq.end((err, res) => {
       let token = res.body.token;
       chai.request(server)
-        .get('/api/articles')
+        .get('/api/public/articles')
         .set('x-access-token', token)
         .end((err, res) => {
         res.should.have.status(200);

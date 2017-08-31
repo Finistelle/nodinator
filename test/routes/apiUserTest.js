@@ -39,6 +39,12 @@ describe('User error', () => {
 
 describe('User REST api GET', () => {
 
+  before((done) => {
+    User.remove({}, (err) => {
+      done();
+    });
+  });
+
   let token = '';
 
   beforeEach((done) => {
@@ -46,7 +52,7 @@ describe('User REST api GET', () => {
       _id: '59a69423454170614a76a900',
       firstName: 'jean',
       lastName: 'test',
-      roles: 'ROLE_USER',
+      roles: 'ROLE_ADMIN',
       password: 'test',
       email: 'test@test.com',
       created_at: "2017-08-30T12:21:14.971Z",
@@ -66,7 +72,7 @@ describe('User REST api GET', () => {
       tokenReq.end((err, res) => {
         token = res.body.token;
         let req = chai.request(server)
-          .get('/api/users')
+          .get('/api/private/users')
           .set('x-access-token', token);
         req.end((err, res) => {
           res.should.have.status(200);
@@ -84,7 +90,7 @@ describe('User REST api GET', () => {
                 "created_at": "2017-08-30T12:21:14.971Z",
                 "updated_at": "2017-08-30T12:21:14.971Z",
                 "roles": [
-                  "ROLE_USER"
+                  "ROLE_ADMIN"
                 ]
               }
             ]
@@ -105,7 +111,7 @@ describe('User REST api GET', () => {
       tokenReq.end((err, res) => {
         token = res.body.token;
         let req = chai.request(server)
-          .get('/api/user/59a69423454170614a76a900')
+          .get('/api/public/user/59a69423454170614a76a900')
           .set('x-access-token', token);
         req.end((err, res) => {
           res.should.have.status(200);
@@ -122,7 +128,7 @@ describe('User REST api GET', () => {
               "orders": [],
               "password": "test",
               "roles": [
-                "ROLE_USER"
+                "ROLE_ADMIN"
               ],
               "updated_at": "2017-08-30T12:21:14.971Z"
             }
@@ -165,7 +171,7 @@ describe('User REST api PUT', () => {
           email: 'test@update.com'
         };
         let req = chai.request(server)
-          .put('/api/user/59a69423454170614a76a900')
+          .put('/api/private/user/59a69423454170614a76a900')
           .set('x-access-token', token)
           .send(user);
         req.end((err, res) => {
@@ -192,7 +198,7 @@ describe('User REST api DELETE', () => {
       _id: '59a69423454170614a76a900',
       firstName: 'jean',
       lastName: 'test',
-      roles: 'ROLE_USER',
+      roles: 'ROLE_ADMIN',
       password: 'test',
       email: 'test@test.com',
       created_at: "2017-08-30T12:21:14.971Z",
@@ -212,7 +218,7 @@ describe('User REST api DELETE', () => {
       tokenReq.end((err, res) => {
         let token = res.body.token;
         let req = chai.request(server)
-          .delete('/api/user/59a69423454170614a76a900')
+          .delete('/api/private/user/59a69423454170614a76a900')
           .set('x-access-token', token);
         req.end((err, res) => {
           res.should.have.status(200);
