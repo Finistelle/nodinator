@@ -1,0 +1,92 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:7.10
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      # run tests!
+      - run: yarn test
+
+      ##- run: npm install -g @angular/cli
+      - run: yarn ng -- build
+
+
+
+  deploy_prod:
+    docker:
+      - image: circleci/node:7.10
+
+    working_directory: ~/prod_repo
+
+    steps:
+      - checkout
+      - run : scp -o StrictHostKeyChecking=no -r ~/prod_repo/ $DEPLOYMENT_USER@$DEPLOYMENT_HOST:/var/www/prod_deploy
+      - run : scp -o StrictHostKeyChecking=no -r ~/prod_repo/.circleci/deploy.sh $DEPLOYMENT_USER@$DEPLOYMENT_HOST:/tmp/
+      - run : ssh -o StrictHostKeyChecking=no $DEPLOYMENT_USER@$DEPLOYMENT_HOST "chmod +x /tmp/deploy.sh; /tmp/deploy.sh prod"
+
+
+  deploy_preprod:
+    docker:
+      - image: circleci/node:7.10
+
+    working_directory: ~/preprod_repo
+
+    steps:
+      - checkout
+      - run : scp -o StrictHostKeyChecking=no -r ~/preprod_repo/ $DEPLOYMENT_USER@$DEPLOYMENT_HOST:/var/www/preprod_deploy
+      - run : scp -o StrictHostKeyChecking=no -r ~/preprod_repo/.circleci/deploy.sh $DEPLOYMENT_USER@$DEPLOYMENT_HOST:/tmp/
+      - run : ssh -o StrictHostKeyChecking=no $DEPLOYMENT_USER@$DEPLOYMENT_HOST "chmod +x /tmp/deploy.sh; /tmp/deploy.sh preprod"
+
+        
+workflows:
+  version: 2
+  
+  build_n_deploy:
+    jobs:
+      - build
+
+      - deploy_prod:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+
+      - deploy_preprod:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - develop
+

@@ -5,6 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
+    "build": "ng build -prod",
     "start:dev": "cross-env NODE_ENV=dev node server.js",
     "start:test": "cross-env NODE_ENV=test node server.js",
     "start": "NODE_ENV=default node server.js",
