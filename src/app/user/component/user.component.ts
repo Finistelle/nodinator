@@ -19,7 +19,7 @@ export class UserComponent implements OnInit {
 
     constructor(private _repo: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
         this.newUser = new User();
-        this.userList= [];
+        this.userList = [];
         this.roleList = ['Client' , 'Visiteur' , 'Administrateur'];
     }
 

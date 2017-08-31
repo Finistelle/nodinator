@@ -36,7 +36,6 @@ import { AppRoutingModule } from "./app.routing.module";
     FormsModule,
     HttpModule,
     AppRoutingModule,
-
   ],
   providers: [
     { provide: UserRepositoryService, useClass: UserService },

@@ -3,8 +3,8 @@
 env=$1
 
 cd /var/www/${env}_deploy
-yarn install
-yarn build --prod 
+npm install
+ng build --prod
 cp /var/www/${env}/config.js ./
 cd /var/www
 mv ./${env} ./${env}_old
