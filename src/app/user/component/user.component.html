@@ -33,16 +33,8 @@
             <label>Mot de passe:</label>
             <input type="password" [(ngModel)]="newUser.password" name="password" placeholder="mot de passe" required>
         </div>
-        <div class="field">
-            <label>Rôles: </label>
-            <select name="role"  [(ngModel)]="newUser.roles" *ngFor="let role of roles" >
-                <option value="{{role}}"> {{role}} </option>
-            </select>
-            
-        </div>
         <div class="row">
             <div class="column">
-                <hr />
                 <input type="submit" class="button success large" value="Enregistrer" [disabled]="ncForm.invalid" />
                 <a class="button secondary large" routerLink="/">Annuler</a>
             </div>

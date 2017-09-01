@@ -18,8 +18,11 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryUserDataService } from "./commun/in-memory/in-memory.data";
 import { UserListComponent } from "./user/component/userList.component";
 import { UserService } from "./commun/service/user/user.service";
+import { ArticleService } from "./commun/service/article/article.service";
 import { UserRepositoryService } from "app/commun/service/repository-service";
+import { ArticleRepositoryService } from "app/commun/service/repository-service";
 import { AppRoutingModule } from "./app.routing.module";
+import { ArticleListComponent } from './article/component/articleList.component';
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import { AppRoutingModule } from "./app.routing.module";
     FooterComponent,
     UserListComponent,
     NavComponent,
-    LoginComponent
+    LoginComponent,
+    ArticleListComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,9 @@ import { AppRoutingModule } from "./app.routing.module";
   ],
   providers: [
     { provide: UserRepositoryService, useClass: UserService },
+    { provide: ArticleRepositoryService, useClass: ArticleService },
     UserService,
+    ArticleService,
     HttpService,
     AuthService
   ],
