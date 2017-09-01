@@ -1,10 +1,10 @@
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { ResponseToken } from './../../model/response-token.model';
 import { AuthService } from './../auth.service';
-import { HttpService } from './../../http/http.service';
 import { UserRepositoryService } from './../repository-service';
 import { Observable } from 'rxjs/Rx';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewContainerRef } from '@angular/core';
 import { User, TypeCategorieUser } from "./../../model/user.model";
 import { Router } from "@angular/router";
 
@@ -14,22 +14,14 @@ export class UserService extends UserRepositoryService {
     private _token: string;
     private localUser: User;
     private responseToken: ResponseToken;
-    constructor(private _http: Http, private _router: Router) {
+    constructor(private _http: Http, private _router: Router/*, public toastr: ToastsManager, vcr: ViewContainerRef*/) {
         super();
+        // this.toastr.setRootViewContainerRef(vcr);
         this.localUser = new User;
     }
 
-    public createAccount(user: User): Observable<string> {
-        throw new Error("Method not implemented.");
-    }
-    public getAuthentification(): Observable<string> {
-        throw new Error("Method not implemented.");
-    }
 
-
-
-
-    public addUser(user: User): Observable<User> {
+    public createAccount(user: User): Observable<User> {
         this.localUser = user;
         return this._http.post("/api/oauth/sign-in", user)
             .map((res: Response) => <User>res.json())
@@ -45,7 +37,7 @@ export class UserService extends UserRepositoryService {
             .catch((err: Response) => { return this.error(err); });
     }
 
-    public getToken(user: User): string | undefined {
+    public getToken(): string | undefined {
         if (!this._token) {
             let lS: string;
             lS = localStorage.getItem("token");
@@ -54,7 +46,7 @@ export class UserService extends UserRepositoryService {
         return this._token;
     }
     public setHeader(user: User): Headers | undefined {
-        let token = this.getToken(user);
+        let token = this.getToken();
         if (token) {
             let headers = new Headers();
             headers.append("x-access-token", token);
@@ -65,19 +57,19 @@ export class UserService extends UserRepositoryService {
     }
 
     public getUsers(): Observable<User[]> {
-        console.log(this.localUser);
-        let token = this.getToken(this.localUser);
+        // this.toastr.success(this.localUser.firstName);
+        let token = this.getToken();
         let options = new RequestOptions;
         options.headers = new Headers;
         options.headers.set("x-access-token", token)
 
         return this._http.get('/api/private/users', options)
             .map((res: Response) => {
-
                 return res.json().users;
+
             })
             .catch(err => {
-                console.log(err);
+                // this.toastr.error(err);
                 return Observable.throw(err);
             });
     }

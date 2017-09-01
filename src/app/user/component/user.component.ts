@@ -1,8 +1,9 @@
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Response } from '@angular/http';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from './../../commun/model/user.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { UserService } from './../../commun/service/user/user.service';
 
 @Component({
@@ -17,10 +18,14 @@ export class UserComponent implements OnInit {
     private userList: User[];
     private roleList: String[];
 
-    constructor(private _repo: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
+    constructor(private _repo: UserService,
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
+        public toastr: ToastsManager, vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
         this.newUser = new User();
         this.userList = [];
-        this.roleList = ['Client' , 'Visiteur' , 'Administrateur'];
+        this.roleList = ['Client', 'Visiteur', 'Administrateur'];
     }
 
     ngOnInit(): void {
@@ -33,10 +38,10 @@ export class UserComponent implements OnInit {
     save(form: NgForm): boolean {
         let isSave = false;
         if (form.valid) {
-            this._repo.addUser(this.newUser).subscribe((user: User) =>{
+            this._repo.createAccount(this.newUser).subscribe((user: User) => {
                 this.userList.push(user);
-            },(err: Response)=>{
-                console.log("statut de l'erreur: "+err.status +" "+"erreur:"+err);
+            }, (err: Response) => {
+                this.toastr.error("statut de l'erreur: " + err.status + " " + "erreur:" + err);
             })
         }
         return;

@@ -1,9 +1,10 @@
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { ResponseToken } from './../model/response-token.model';
 import {Headers} from '@angular/http';
 import { Router } from '@angular/router';
 import { User } from './../model/user.model';
 import { NgForm } from '@angular/forms';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewContainerRef } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -13,7 +14,9 @@ import { UserService } from "app/commun/service/user/user.service";
 
 @Injectable()
 export class AuthService {
-    constructor(private _repo: UserService, private _router:Router) { }
+    constructor(private _repo: UserService, private _router: Router, /*public toastr: ToastsManager, vcr: ViewContainerRef*/) {
+            // this.toastr.setRootViewContainerRef(vcr);
+    }
 
     redirectUrl: string;
     private _token?: string;
@@ -31,6 +34,7 @@ export class AuthService {
                 this.localUser = authenticatedUser;
                 this._token = token;
                 this._router.navigateByUrl('/articles');
+                // this.toastr.success("connexion")
             });
             return
         }
@@ -43,7 +47,9 @@ export class AuthService {
     }
 
     public get $isAuthenticated(): boolean {
+        
         return this.isAuthenticated;
+
     }
 
 
