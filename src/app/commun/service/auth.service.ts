@@ -1,10 +1,7 @@
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { ResponseToken } from './../model/response-token.model';
-import {Headers} from '@angular/http';
 import { Router } from '@angular/router';
 import { User } from './../model/user.model';
 import { NgForm } from '@angular/forms';
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -24,8 +21,7 @@ export class AuthService {
 
 
 
-    login(form: NgForm, authenticatedUser: User): Observable<boolean> {
-        let isSave = false;
+    login(form: NgForm, authenticatedUser: User): Observable<boolean> | undefined{
         if (form.valid) {
             this._repo.authentificate(authenticatedUser).subscribe((token: string) => {
                 localStorage.setItem("token", token);
@@ -34,7 +30,7 @@ export class AuthService {
                 this._token = token;
                 this._router.navigateByUrl('/articles');
             });
-            return
+            return Observable.of(this.$isAuthenticated);
         }
     }
 

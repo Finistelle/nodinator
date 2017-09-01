@@ -1,11 +1,10 @@
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { ResponseToken } from './../../model/response-token.model';
-import { AuthService } from './../auth.service';
+import {TypeCategorieUser} from '../../model/user.model';
+
 import { UserRepositoryService } from './../repository-service';
 import { Observable } from 'rxjs/Rx';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
-import { Injectable, ViewContainerRef } from '@angular/core';
-import { User, TypeCategorieUser } from "./../../model/user.model";
+import { Injectable } from '@angular/core';
+import { User } from "./../../model/user.model";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -13,7 +12,6 @@ export class UserService extends UserRepositoryService {
     private _categories: TypeCategorieUser[] = ['Client', 'Visiteur', 'Administrateur'];
     private _token: string;
     private localUser: User;
-    private responseToken: ResponseToken;
     constructor(private _http: Http, private _router: Router) {
         super();
         this.localUser = new User;
@@ -31,14 +29,13 @@ export class UserService extends UserRepositoryService {
     public authentificate(user: User): Observable<string> {
         this.localUser = user;
         return this._http.post("/api/oauth/authenticate", user)
-            .map((res: Response) => res.json().token
-            )
+            .map((res: Response) => res.json().token)
             .catch((err: Response) => { return this.error(err); });
     }
 
-    public getToken(): string | undefined {
+    public getToken(): string | null {
         if (!this._token) {
-            let lS: string;
+            let lS: string | null;
             lS = localStorage.getItem("token");
             return lS;
         }
@@ -55,22 +52,25 @@ export class UserService extends UserRepositoryService {
         }
     }
 
-    public getUsers(): Observable<User[]> {
+    public getUsers(): Observable<User[]> | undefined {
         let token = this.getToken();
-        let options = new RequestOptions;
-        options.headers = new Headers;
-        options.headers.set("x-access-token", token);
+        if (token) {
+            let options = new RequestOptions;
+            options.headers = new Headers;
+            options.headers.set("x-access-token", token)
 
-        return this._http.get('/api/private/users', options)
-            .map((res: Response) => {
-                return res.json().users;
-            })
-            .catch(err => {
-                return Observable.throw(err);
-            });
+            return this._http.get('/api/private/users', options)
+                .map((res: Response) => {
+                    return res.json().users;
+
+                })
+                .catch(err => {
+                    return Observable.throw(err);
+                });
+        }
     }
 
-    public getRoles(): Observable<string[]> {
+    public getRoles(): Observable<TypeCategorieUser[]> {
         return Observable.of(this._categories);
     }
 
@@ -82,5 +82,6 @@ export class UserService extends UserRepositoryService {
             return Observable.throw(error);
         }
     }
-
 }
+
+

@@ -15,9 +15,13 @@ export class UserListComponent implements OnInit {
     constructor(private _repo: UserService, private router: Router) { }
 
     ngOnInit(): void {
-        this._repo.getUsers().subscribe((users: User[]) => {
-            this.users = users;
-        });
+        let users = this._repo.getUsers();
+        if(users!= undefined){
+          users.subscribe((users: User[]) => {
+                this.users = users;
+            });
+        }
+      
     }
 
     onSelect(user: User): void {

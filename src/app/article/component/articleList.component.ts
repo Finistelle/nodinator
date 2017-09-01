@@ -9,9 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticleListComponent implements OnInit {
   private articles: Article[];
-  private selectedArticle: Article;
 
-  constructor(private _repo: ArticleService, private router: Router) { }
+  constructor(private _repo: ArticleService) { }
 
   ngOnInit(): void {
     this._repo.getArticles().subscribe((articles: Article[]) => this.articles = articles);

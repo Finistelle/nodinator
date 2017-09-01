@@ -2,7 +2,7 @@ import { LoginComponent } from './commun/login/login.component';
 import { AuthGuard } from './commun/service/auth-gard';
 
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, Router } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { UserComponent } from "./user/component/user.component";
 import { UserListComponent } from "./user/component/userList.component";
 import { ArticleListComponent } from './article/component/articleList.component';
