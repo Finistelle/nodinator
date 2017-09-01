@@ -1,7 +1,8 @@
+import { CustomOption } from './commun/service/toast-option';
+import { ToastModule, ToastOptions } from 'ng2-toastr/ng2-toastr';
 import { AuthService } from './commun/service/auth.service';
 
 import { LoginComponent } from './commun/login/login.component';
-import { HttpService} from './commun/http/http.service';
 import { NavComponent } from './commun/layout/nav/nav.component';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -41,13 +42,14 @@ import { ArticleListComponent } from './article/component/articleList.component'
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    ToastModule.forRoot()
   ],
   providers: [
     { provide: UserRepositoryService, useClass: UserService },
+    {provide: ToastOptions, useClass: CustomOption},
     { provide: ArticleRepositoryService, useClass: ArticleService },
     UserService,
     ArticleService,
-    HttpService,
     AuthService
   ],
   bootstrap: [AppComponent]
