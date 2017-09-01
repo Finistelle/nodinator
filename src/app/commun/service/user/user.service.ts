@@ -1,10 +1,10 @@
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { ResponseToken } from './../../model/response-token.model';
 import { AuthService } from './../auth.service';
-import { HttpService } from './../../http/http.service';
 import { UserRepositoryService } from './../repository-service';
 import { Observable } from 'rxjs/Rx';
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ViewContainerRef } from '@angular/core';
 import { User, TypeCategorieUser } from "./../../model/user.model";
 import { Router } from "@angular/router";
 
@@ -19,17 +19,8 @@ export class UserService extends UserRepositoryService {
         this.localUser = new User;
     }
 
-    public createAccount(user: User): Observable<string> {
-        throw new Error("Method not implemented.");
-    }
-    public getAuthentification(): Observable<string> {
-        throw new Error("Method not implemented.");
-    }
 
-
-
-
-    public addUser(user: User): Observable<User> {
+    public createAccount(user: User): Observable<User> {
         this.localUser = user;
         return this._http.post("/api/oauth/sign-in", user)
             .map((res: Response) => <User>res.json())
@@ -65,7 +56,6 @@ export class UserService extends UserRepositoryService {
     }
 
     public getUsers(): Observable<User[]> {
-        console.log(this.localUser);
         let token = this.getToken();
         let options = new RequestOptions;
         options.headers = new Headers;
@@ -73,11 +63,9 @@ export class UserService extends UserRepositoryService {
 
         return this._http.get('/api/private/users', options)
             .map((res: Response) => {
-
                 return res.json().users;
             })
             .catch(err => {
-                console.log(err);
                 return Observable.throw(err);
             });
     }

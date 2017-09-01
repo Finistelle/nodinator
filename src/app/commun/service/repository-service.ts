@@ -5,8 +5,8 @@ import { Article } from "../model/article.model";
 
 @Injectable()
 export abstract class UserRepositoryService {
-    public abstract createAccount(user:User): Observable<string>;
-    public abstract getAuthentification():Observable<string>;
+    public abstract createAccount(user:User): Observable<User>;
+    public abstract authentificate(user: User):Observable<string>;
     public abstract getUsers(): Observable<User[]>;
 
     public abstract getRoles(): Observable<string[]>;
