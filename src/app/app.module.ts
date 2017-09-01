@@ -22,6 +22,7 @@ import { ArticleRepositoryService } from "app/commun/service/repository-service"
 import { AppRoutingModule } from "./app.routing.module";
 import { ArticleListComponent } from './article/component/articleList.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { ArticleComponent } from './article/component/article.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     NavComponent,
     LoginComponent,
     ArticleListComponent,
+    ArticleComponent,
   ],
   imports: [
     BrowserModule,

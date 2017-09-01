@@ -12,16 +12,15 @@
           <div class="description">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit...
           </div>
-          <a (click)="getArticle(articles.id)" style="float: right">Show more</a>
+          <a [routerLink]="[article._id]" style="float: right">Show more</a>
         </div>
         <div class="extra content">
           <div class="right floated author">
             <img class="ui avatar image" src="../../../assets/images/small/elliot.jpg"> Matt
           </div>
         </div>
-      
       </div>
     </div>
   </div>
+  <pagination-controls (pageChange)="p = $event" style="float: right;"></pagination-controls>
 </div>
-<pagination-controls (pageChange)="p = $event"></pagination-controls>
