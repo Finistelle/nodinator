@@ -1,9 +1,9 @@
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { Response } from '@angular/http';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { User } from './../../commun/model/user.model';
-import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { UserService } from './../../commun/service/user/user.service';
 
 @Component({
@@ -12,14 +12,12 @@ import { UserService } from './../../commun/service/user/user.service';
 })
 export class UserComponent implements OnInit {
 
-    private user: User;
     private userId: number;
     private newUser: User;
     private userList: User[];
     private roleList: String[];
 
     constructor(private _repo: UserService,
-        private router: Router,
         private activatedRoute: ActivatedRoute,
         public toastr: ToastsManager, vcr: ViewContainerRef) {
         this.toastr.setRootViewContainerRef(vcr);
@@ -40,10 +38,11 @@ export class UserComponent implements OnInit {
         if (form.valid) {
             this._repo.createAccount(this.newUser).subscribe((user: User) => {
                 this.userList.push(user);
+                isSave = true;
             }, (err: Response) => {
                 this.toastr.error("statut de l'erreur: " + err.status + " " + "erreur:" + err);
             })
         }
-        return;
+        return isSave;
     }
 }

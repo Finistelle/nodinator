@@ -7,8 +7,7 @@ import { Article } from "../model/article.model";
 export abstract class UserRepositoryService {
     public abstract createAccount(user:User): Observable<User>;
     public abstract authentificate(user: User):Observable<string>;
-    public abstract getUsers(): Observable<User[]>;
-
+    public abstract getUsers(): Observable<User[]> | undefined;
     public abstract getRoles(): Observable<string[]>;
 
 }
