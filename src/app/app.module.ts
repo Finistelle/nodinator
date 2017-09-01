@@ -21,6 +21,7 @@ import { UserRepositoryService } from "app/commun/service/repository-service";
 import { ArticleRepositoryService } from "app/commun/service/repository-service";
 import { AppRoutingModule } from "./app.routing.module";
 import { ArticleListComponent } from './article/component/articleList.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ArticleListComponent } from './article/component/articleList.component'
     FormsModule,
     HttpModule,
     AppRoutingModule,
-    ToastModule.forRoot()
+    ToastModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
     { provide: UserRepositoryService, useClass: UserService },

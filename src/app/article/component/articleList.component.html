@@ -4,7 +4,7 @@
   <br>
   <br>
   <div class="ui four column grid">
-    <div *ngFor="let article of articles" class="wide column">
+    <div *ngFor="let article of articles| paginate: { itemsPerPage: 10, currentPage: p }" class="wide column">
       <div class="ui card">
         <div class="content">
           <div class="header">{{ article.title }}</div>
@@ -19,7 +19,9 @@
             <img class="ui avatar image" src="../../../assets/images/small/elliot.jpg"> Matt
           </div>
         </div>
+      
       </div>
     </div>
   </div>
 </div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>

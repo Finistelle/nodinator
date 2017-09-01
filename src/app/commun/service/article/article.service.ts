@@ -1,21 +1,19 @@
-import { Body } from '@angular/http/src/body';
+
 import { ArticleRepositoryService } from '../article-repository-service';
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response, RequestOptions } from '@angular/http';
-import { Article, typeStatus } from '../../model/article.model';
+import { Http, Response } from '@angular/http';
+import { Article } from '../../model/article.model';
 import { Observable} from 'rxjs/Rx';
-import { UserService} from '../user/user.service';
-import { Router } from "@angular/router";
 
 
 @Injectable()
 export class ArticleService extends ArticleRepositoryService {
 
-  private _status: typeStatus[] = ['PUBLISH', 'DRAFT'];
-  private _headers: Headers;
-  private _body: Body;
+  // private _status: typeStatus[] = ['PUBLISH', 'DRAFT'];
+  // private _headers: Headers;
+  // private _body: Body;
 
-  constructor(private _http: Http, private userService: UserService, private router: Router) {
+  constructor(private _http: Http/*, private userService: UserService, private router: Router*/) {
     super();
   }
 
