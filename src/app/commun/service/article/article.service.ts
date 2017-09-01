@@ -19,11 +19,6 @@ export class ArticleService extends ArticleRepositoryService {
     super();
   }
 
-  public setHeaders() {
-    this._headers = new Headers;
-    this._headers.append('Authorization', 'my-auth-token');
-  }
-
   public getArticles(): Observable<Article[]> {
     return this._http.get('/api/public/articles')
       .map((res: Response) => {

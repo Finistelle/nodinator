@@ -45,7 +45,7 @@ export class UserService extends UserRepositoryService {
             .catch((err: Response) => { return this.error(err); });
     }
 
-    public getToken(user: User): string | undefined {
+    public getToken(): string | undefined {
         if (!this._token) {
             let lS: string;
             lS = localStorage.getItem("token");
@@ -54,7 +54,7 @@ export class UserService extends UserRepositoryService {
         return this._token;
     }
     public setHeader(user: User): Headers | undefined {
-        let token = this.getToken(user);
+        let token = this.getToken();
         if (token) {
             let headers = new Headers();
             headers.append("x-access-token", token);
@@ -66,10 +66,10 @@ export class UserService extends UserRepositoryService {
 
     public getUsers(): Observable<User[]> {
         console.log(this.localUser);
-        let token = this.getToken(this.localUser);
+        let token = this.getToken();
         let options = new RequestOptions;
         options.headers = new Headers;
-        options.headers.set("x-access-token", token)
+        options.headers.set("x-access-token", token);
 
         return this._http.get('/api/private/users', options)
             .map((res: Response) => {

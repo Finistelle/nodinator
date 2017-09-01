@@ -8,5 +8,9 @@
 }
 
 .hidden {
-    display: none;
+    display: none!important;
+}
+
+.card {
+  height: 250px;
 }
