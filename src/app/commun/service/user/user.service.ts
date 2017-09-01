@@ -14,9 +14,8 @@ export class UserService extends UserRepositoryService {
     private _token: string;
     private localUser: User;
     private responseToken: ResponseToken;
-    constructor(private _http: Http, private _router: Router/*, public toastr: ToastsManager, vcr: ViewContainerRef*/) {
+    constructor(private _http: Http, private _router: Router) {
         super();
-        // this.toastr.setRootViewContainerRef(vcr);
         this.localUser = new User;
     }
 
@@ -57,7 +56,6 @@ export class UserService extends UserRepositoryService {
     }
 
     public getUsers(): Observable<User[]> {
-        // this.toastr.success(this.localUser.firstName);
         let token = this.getToken();
         let options = new RequestOptions;
         options.headers = new Headers;
@@ -69,7 +67,6 @@ export class UserService extends UserRepositoryService {
 
             })
             .catch(err => {
-                // this.toastr.error(err);
                 return Observable.throw(err);
             });
     }

@@ -14,8 +14,7 @@ import { UserService } from "app/commun/service/user/user.service";
 
 @Injectable()
 export class AuthService {
-    constructor(private _repo: UserService, private _router: Router, /*public toastr: ToastsManager, vcr: ViewContainerRef*/) {
-            // this.toastr.setRootViewContainerRef(vcr);
+    constructor(private _repo: UserService, private _router: Router) {
     }
 
     redirectUrl: string;
@@ -34,7 +33,6 @@ export class AuthService {
                 this.localUser = authenticatedUser;
                 this._token = token;
                 this._router.navigateByUrl('/articles');
-                // this.toastr.success("connexion")
             });
             return
         }
