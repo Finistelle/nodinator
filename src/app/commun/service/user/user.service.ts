@@ -59,12 +59,11 @@ export class UserService extends UserRepositoryService {
         let token = this.getToken();
         let options = new RequestOptions;
         options.headers = new Headers;
-        options.headers.set("x-access-token", token)
+        options.headers.set("x-access-token", token);
 
         return this._http.get('/api/private/users', options)
             .map((res: Response) => {
                 return res.json().users;
-
             })
             .catch(err => {
                 return Observable.throw(err);

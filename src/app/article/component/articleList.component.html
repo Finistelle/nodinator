@@ -1,8 +1,25 @@
 <div class="row">
   <h2>Liste des articles</h2>
-
-  BISOUS
-  <div>
-    <a (click)="addArticle()">Ajouter un article</a>
+  <button class="ui basic button" (click)="addArticle()"><i class="icon plus"></i>Ajouter un article</button>
+  <br>
+  <br>
+  <div class="ui four column grid">
+    <div *ngFor="let article of articles" class="wide column">
+      <div class="ui card">
+        <div class="content">
+          <div class="header">{{ article.title }}</div>
+          <div class="meta">{{ article.updated_at|date:'fullDate' }}</div>
+          <div class="description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit...
+          </div>
+          <a (click)="getArticle(articles.id)" style="float: right">Show more</a>
+        </div>
+        <div class="extra content">
+          <div class="right floated author">
+            <img class="ui avatar image" src="../../../assets/images/small/elliot.jpg"> Matt
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
