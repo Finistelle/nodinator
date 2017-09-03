@@ -16,13 +16,4 @@ export class ArticleListComponent implements OnInit {
   ngOnInit(): void {
     this._repo.getArticles().subscribe((articles: Article[]) => this.articles = articles);
   }
-
-  // gotoDetail(article: Article): void {
-  //   this.selectedArticle = article;
-  //   this.router.navigate(['articles/detail/', this.selectedArticle.id]);
-  // }
-
-  // addArticle(): void {
-  //   this.router.navigate(['articles/detail', 0]);
-  // }
 }

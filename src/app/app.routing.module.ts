@@ -3,10 +3,11 @@ import { AuthGuard } from './commun/service/auth-gard';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from "./user/component/user.component";
-import { UserListComponent } from "./user/component/userList.component";
+import { UserComponent } from './user/component/user.component';
+import { UserListComponent } from './user/component/userList.component';
 import { ArticleListComponent } from './article/component/articleList.component';
 import { ArticleComponent } from './article/component/article.component';
+import { ArticleFormComponent } from './article/component/articleForm.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,7 @@ const routes: Routes = [
   {
     path: 'users',
     children: [
-      { path: "", canActivateChild: [AuthGuard], component: UserListComponent },
+      { path: '', canActivateChild: [AuthGuard], component: UserListComponent },
       { path: 'detail/:id', component: UserComponent, canActivateChild: [AuthGuard] },
       { path: 'form', component: UserComponent, canActivateChild: [AuthGuard] }
     ]
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: 'articles',
     children: [
       { path: '', component: ArticleListComponent },
+      { path: 'add', component: ArticleFormComponent },
       { path: ':id', component: ArticleComponent },
     ]
   }

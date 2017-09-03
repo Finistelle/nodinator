@@ -33,8 +33,8 @@ export class ArticleComponent implements OnInit {
     this._repo.getArticle(this.articleId).subscribe((article: Article) => {
       this.article = article;
     }, (err: Response) => {
-      this.toastr.error("statut de l'erreur: " + err.status + " " + "erreur:" + err);
-    })
+      this.toastr.error('error status: ' + err.status + ' ' + 'error:' + err);
+    });
   }
   // save(form: NgForm): boolean {
   //   let isSave = false;

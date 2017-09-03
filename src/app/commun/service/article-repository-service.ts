@@ -12,6 +12,6 @@ export abstract class ArticleRepositoryService {
 
   public abstract getArticle(id: number): Observable<Article>;
 
-  // public abstract addArticle(article: Article): Observable<Response>;
+  public abstract addArticle(article: Article): Observable<Article>;
 
 }

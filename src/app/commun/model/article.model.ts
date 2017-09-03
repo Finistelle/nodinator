@@ -3,6 +3,6 @@ export class Article {
   title: String;
   content: String;
   slug: String;
-  status: typeStatus;
+  status: status;
 }
-export declare type typeStatus = 'PUBLISH' | 'DRAFT' ;
+export declare type status = 'PUBLISH' | 'DRAFT' ;
