@@ -1,12 +1,11 @@
 <h2>New Article</h2>
-<form class="ui form" name="ncForm" #ncForm="ngForm" (ngSubmit)="save(ncForm)">
+<form class="ui form" name="ncForm" #articleForm="ngForm" (ngSubmit)="save(ncForm)">
+  <div class="ui error message"></div>
   <div class="field">
-    <label>Title</label>
-    <input type="text" name="title" [(ngModel)]="newArticle.title" placeholder="Title">
+    <input type="text" id="title" name="title" placeholder="Title" required [(ngModel)]="article.title">
   </div>
   <div class="field">
-    <label>Text</label>
-    <textarea [(ngModel)]="newArticle.content"></textarea>
+    <textarea id="content" name="content" placeholder="Pass your knowledge..."></textarea>
   </div>
   <button class="ui button grey" routerLink="/articles">Cancel</button>
   <button class="ui button" type="submit">Save Draft</button>
